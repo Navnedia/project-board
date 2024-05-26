@@ -6,12 +6,12 @@ import '../styles/ProjectCard.css';
 
 function ProjectCard({project, ...props}) {
     return (
-        <Card className="p-2" bg="dark" text="light">
+        <Card className="p-2 h-100 zoom" bg="dark" text="light">
             <Ratio aspectRatio="4x3">
                 <Card.Img src={project.coverImageURL} 
                           variant="top" 
-                          className="rounded" 
-                          style={{ "object-fit": "cover" }} 
+                          className="rounded"
+                          style={{ objectFit: "cover" }} 
                 />
             </Ratio>
 

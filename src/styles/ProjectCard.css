@@ -5,3 +5,21 @@
     -webkit-line-clamp: 4;
             line-clamp: 4; 
 }
+
+.zoom {
+    transition: transform .2s ease-in-out;
+}
+
+.zoom:hover {
+    -ms-transform: scale(1.03); /* IE 9 */
+    -webkit-transform: scale(1.03); /* Safari 3-8 */
+    transform: scale(1.03);
+}
+
+@media(prefers-reduced-motion) {
+    .zoom:hover {
+        -ms-transform: scale(1.01); /* IE 9 */
+        -webkit-transform: scale(1.01); /* Safari 3-8 */
+        transform: scale(1.01);
+    }
+}

@@ -8,10 +8,11 @@ function ProjectCard({project, ...props}) {
     return (
         <Card className="p-2 h-100 zoom" bg="dark" text="light">
             <Ratio aspectRatio="4x3">
-                <Card.Img src={project.coverImageURL} 
+                <Card.Img src={project.coverImageURL}
                           variant="top" 
                           className="rounded"
-                          style={{ objectFit: "cover" }} 
+                          style={{ objectFit: "cover" }}
+                          loading="lazy"
                 />
             </Ratio>
 

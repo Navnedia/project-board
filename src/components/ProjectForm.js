@@ -25,7 +25,7 @@ const blankProject = {
 const linksPluginConfig = [rehypeExternalLinks, {rel: ["nofollow", "noopener", "noreferrer"], target: "_blank"}]
 
 
-function ProjectEditor({project = blankProject, onCancel = () => {}, onSave = () => {}, BodyWrapper = "div", BtnWrapper = "div", ...props}) {
+function ProjectForm({project = blankProject, onCancel = () => {}, onSave = () => {}, BodyWrapper = "div", BtnWrapper = "div", ...props}) {
     // Tracking state of the project form.
     const [projectForm, setProjectForm] = useState(project);
     // Track if the form has been validated after submit (triggers showing validation styles).
@@ -176,4 +176,4 @@ function ProjectEditor({project = blankProject, onCancel = () => {}, onSave = ()
     );
 }
 
-export default ProjectEditor;
+export default ProjectForm;

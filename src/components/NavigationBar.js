@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Button from 'react-bootstrap/Button';
 
 function NavigationBar() {
     return (
@@ -19,6 +20,11 @@ function NavigationBar() {
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/user/projects">My Projects</Nav.Link>
                         </Nav>
+
+                        <div className="d-flex">
+                            <Button variant="success" className="me-3">Create Project</Button>
+                            <Button href="/login" variant="light">Login</Button>
+                        </div>
                     </Offcanvas.Body>
                 </Navbar.Offcanvas>
             </Container>

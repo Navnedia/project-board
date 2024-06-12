@@ -1,7 +1,22 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/6w5qaeE1)
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-7f7980b617ed060a017424585567c406b6ee15c891e84e1186181d67ecf80aa0.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=15075619)
 # FinalProject-FE
-The React, Front end repository
+A project share board to help you build a team and collaborate on exciting project ideas.
+
+## Installation and Usage
+
+1. Clone the repository onto your machine: `git clone https://github.com/bodonnell-DePaul/final-project-fe-Navnedia.git`
+
+
+2. Install the npm dependencies: **`npm install --legacy-peer-deps`**
+
+> [!WARNING]  
+> Please be sure to use the **`--legacy-peer-deps`** flag when installing the npm packages! One of the libraries in this project relies on a different version of React. If you don't, it will scream at you and not work properly :(
+
+3. Set up and get the [backend server-side](https://github.com/bodonnell-DePaul/final-project-back-end-Navnedia) running. By default, the backend sure runs on `localhost:5066`, but if you need to change the url/port on the front end, you can just update the `REACT_APP_API_BASE_URL` in the [`.env`](./.env) file.
+
+4. Start the application frontend by running: `npm start`
+
 
 ## Requirements
 Choose a project that fulfills the following requirements:

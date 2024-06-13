@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-function ProjectsGrid() {
+function ProjectsGrid({...props}) {
     const [ projects, setProjects ] = useState([]);
 
     const baseURL = process.env.REACT_APP_API_BASE_URL;

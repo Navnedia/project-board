@@ -21,11 +21,13 @@ const blankProject = {
     contactEmail: ""
 };
 
+const baseURL = process.env.REACT_APP_API_BASE_URL;
+
 // Configure the rehype links transformer plugin to open links externally and add rel important attributes.
 const linksPluginConfig = [rehypeExternalLinks, {rel: ["nofollow", "noopener", "noreferrer"], target: "_blank"}]
 
 
-function ProjectForm({project = blankProject, onCancel = () => {}, onSave = () => {}, BodyWrapper = "div", BtnWrapper = "div", ...props}) {
+function ProjectForm({project = blankProject, projectId = null, onCancel = (_) => {}, onSave = (_) => {}, BodyWrapper = "div", BtnWrapper = "div", ...props}) {
     // Tracking state of the project form.
     const [projectForm, setProjectForm] = useState(project);
     // Track if the form has been validated after submit (triggers showing validation styles).
@@ -55,124 +57,140 @@ function ProjectForm({project = blankProject, onCancel = () => {}, onSave = () =
         const isValid = form.checkValidity() // Run built-in form validation.
         e.preventDefault();
         e.stopPropagation();
+        // console.log("Submit");
+        // console.log(JSON.stringify(projectForm));
 
         // Show validation states if something is invalid, or save if it's all good.
         if (isValid === false || imageUrlInvalid || description.length === 0) {
             setValidated(true);
         } else {
+            // console.log("save");
             onSave(projectForm);
         }
     }
 
+    useState(() => {
+        if (!!projectId) {
+            fetch(`${baseURL}/projects/${projectId}`)
+                .then((response) => response.json())
+                .then((data) => setProjectForm(() => data))
+                .catch((err) => console.error(err));
+        }
+    }, [projectId]);
+
     return (
-        <Form noValidate validated={validated} onSubmit={handleSubmit} className="overflow-auto">
-            <BodyWrapper>
-                <Container fluid="md">
-                    <Ratio aspectRatio="4x3" className="mb-2" >
-                        <Image 
-                            src={projectForm.coverImageURL}
-                            alt="Project cover image"
-                            className="object-fit-cover"
-                            onError={handleImageError}
-                            rounded fluid
-                        />
-                    </Ratio>
+        <Container fluid="md" className="my-4">
+            <Form noValidate validated={validated} onSubmit={handleSubmit} className="overflow-auto">
+                <BodyWrapper>
+                    {/* <Container fluid="md"> */}
+                        <Ratio aspectRatio="4x3" className="mb-2" >
+                            <Image 
+                                src={projectForm.coverImageURL}
+                                alt="Project cover image"
+                                className="object-fit-cover"
+                                onError={handleImageError}
+                                rounded fluid
+                            />
+                        </Ratio>
 
-                    <Form.Group controlId="projectImageURL" className="mb-3">
-                        <Form.Label className="fw-bold">Cover Image URL</Form.Label>
+                        <Form.Group controlId="projectImageURL" className="mb-3">
+                            <Form.Label className="fw-bold">Cover Image URL</Form.Label>
 
-                        <Form.Control type="url" placeholder="https://" autoFocus value={projectForm.coverImageURL} onChange={(e) => {
-                            setProjectForm((project) => ({...project, coverImageURL: e.target.value}));
-                            setImageUrlInvalid(false) // Reset the validity state till after change.
-                        }} required isInvalid={imageUrlInvalid} />
+                            <Form.Control type="url" placeholder="https://" autoFocus value={projectForm.coverImageURL} onChange={(e) => {
+                                setProjectForm((project) => ({...project, coverImageURL: e.target.value}));
+                                setImageUrlInvalid(false) // Reset the validity state till after change.
+                            }} required isInvalid={imageUrlInvalid} />
 
-                        <Form.Control.Feedback type="invalid">
-                            Please provide a valid image url. Make sure the url starts with http:// or https://
-                        </Form.Control.Feedback>
-                    </Form.Group>
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid image url. Make sure the url starts with http:// or https://
+                            </Form.Control.Feedback>
+                        </Form.Group>
 
-                    <Form.Group controlId="projectTitle" className="mb-3">
-                        <Form.Label className="fw-bold">Project Title</Form.Label>
+                        <Form.Group controlId="projectTitle" className="mb-3">
+                            <Form.Label className="fw-bold">Project Title</Form.Label>
 
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Untitled Project"
-                            maxLength="60" 
-                            value={projectForm.title} 
-                            onChange={(e) => {
-                                setProjectForm((project) => ({...project, title: e.target.value}));
-                            }} 
-                        required />
-                    </Form.Group>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Untitled Project"
+                                maxLength="60" 
+                                value={projectForm.title} 
+                                onChange={(e) => {
+                                    setProjectForm((project) => ({...project, title: e.target.value}));
+                                }} 
+                            required />
+                        </Form.Group>
 
-                    <Form.Group controlId="projectSummary" className="mb-3">
-                        <Form.Label className="fw-bold mb-0">Summary</Form.Label>
-                        <Form.Text id="summaryHelp" className="d-block mb-2">
-                            Provide a short 1-2 sentence summary of your project concept 
-                            (visible on the projects list page).
-                        </Form.Text>
+                        <Form.Group controlId="projectSummary" className="mb-3">
+                            <Form.Label className="fw-bold mb-0">Summary</Form.Label>
+                            <Form.Text id="summaryHelp" className="d-block mb-2">
+                                Provide a short 1-2 sentence summary of your project concept 
+                                (visible on the projects list page).
+                            </Form.Text>
 
-                        <Form.Control 
-                            as="textarea" 
-                            placeholder="Tell us about your project . . ." 
-                            aria-describedby="summaryHelp" 
-                            maxLength="200" 
-                            value={projectForm.summary} 
-                            onChange={(e) => {
-                                setProjectForm((project) => ({...project, summary: e.target.value}));
-                            }} 
-                        required />
-                    </Form.Group>
+                            <Form.Control 
+                                as="textarea" 
+                                placeholder="Tell us about your project . . ." 
+                                aria-describedby="summaryHelp" 
+                                maxLength="200" 
+                                value={projectForm.summary} 
+                                onChange={(e) => {
+                                    setProjectForm((project) => ({...project, summary: e.target.value}));
+                                }} 
+                            required />
+                        </Form.Group>
 
-                    <Form.Group controlId="projectContactEmail" className="mb-3">
-                        <Form.Label className="fw-bold">Contact Email</Form.Label>
+                        <Form.Group controlId="projectContactEmail" className="mb-3">
+                            <Form.Label className="fw-bold">Contact Email</Form.Label>
 
-                        <Form.Control type="email" placeholder="username@example.com" value={projectForm.contactEmail}
-                            onChange={(e) => {
-                                setProjectForm((project) => ({...project, contactEmail: e.target.value}));
-                            }} 
-                        required />
-                    </Form.Group>
+                            <Form.Control type="email" placeholder="username@example.com" value={projectForm.contactEmail}
+                                onChange={(e) => {
+                                    setProjectForm((project) => ({...project, contactEmail: e.target.value}));
+                                }} 
+                            required />
+                        </Form.Group>
 
-                    <Form.Group controlId="projectDescription" className="mb-3">
-                        <Form.Label className="fw-bold mb-0">Full Description</Form.Label>
-                        <Form.Text className="d-block mb-2">
-                            Tell us about your project! Share as much detail as possible, whether it be in the
-                            initial idea phase or in later development stages. Include any relevant information, 
-                            such as project type, skill sets needed on your team, project goals, and other 
-                            resources. Don't forget to have fun and be creative! Feel free to play around with
-                            formatting, images, assets, and links.<br/><br/>
+                        <Form.Group controlId="projectDescription" className="mb-3">
+                            <Form.Label className="fw-bold mb-0">Full Description</Form.Label>
+                            <Form.Text className="d-block mb-2">
+                                Tell us about your project! Share as much detail as possible, whether it be in the
+                                initial idea phase or in later development stages. Include any relevant information, 
+                                such as project type, skill sets needed on your team, project goals, and other 
+                                resources. Don't forget to have fun and be creative! Feel free to play around with
+                                formatting, images, assets, and links.<br/><br/>
 
-                            This full description is for people to see when they view your project page.
-                        </Form.Text>
+                                This full description is for people to see when they view your project page.
+                            </Form.Text>
 
-                        <ReactMde
-                            value={description}
-                            onChange={setDescription}
-                            selectedTab={selectedTab}
-                            onTabChange={setSelectedTab}
-                            maxEditorHeight={600}
-                            generateMarkdownPreview={(markdown) => Promise.resolve(
-                                <ReactMarkdown 
-                                    remarkPlugins={[remarkGfm]} 
-                                    rehypePlugins={[linksPluginConfig]} 
-                                    className="markdown-body">
-                                    { markdown }
-                                </ReactMarkdown>
-                            )}
-                        />
-                    </Form.Group>
-                </Container>
-            </BodyWrapper>
+                            <ReactMde
+                                value={description}
+                                onChange={setDescription}
+                                selectedTab={selectedTab}
+                                onTabChange={setSelectedTab}
+                                maxEditorHeight={600}
+                                generateMarkdownPreview={(markdown) => Promise.resolve(
+                                    <ReactMarkdown 
+                                        remarkPlugins={[remarkGfm]} 
+                                        rehypePlugins={[linksPluginConfig]} 
+                                        className="markdown-body">
+                                        { markdown }
+                                    </ReactMarkdown>
+                                )}
+                            />
+                        </Form.Group>
+                    {/* </Container> */}
+                </BodyWrapper>
 
-            <BtnWrapper>
-                <Button type="button" variant="secondary" className="m-1" onClick={onCancel(projectForm)}>
-                    Cancel
-                </Button>
-                
-                <Button type="submit" variant="primary" className="m-1">Save</Button>
-            </BtnWrapper>
-        </Form>
+                <BtnWrapper>
+                    <div className="d-flex justify-content-end">
+                        {/* <Button type="button" variant="secondary" className="m-1" onClick={onCancel(projectForm)}>
+                            Cancel
+                        </Button> */}
+
+                        <Button type="submit" variant="primary" className="m-1">Save</Button>
+                    </div>
+                </BtnWrapper>
+            </Form>
+        </Container>
     );
 }
 

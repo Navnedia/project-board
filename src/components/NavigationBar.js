@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from 'react-bootstrap/Button';
 
-function NavigationBar() {
+function NavigationBar({...props}) {
     return (
         <Navbar expand="md" className="bg-body-tertiary" sticky="top" data-bs-theme="dark">
             <Container fluid>
@@ -22,7 +22,7 @@ function NavigationBar() {
                         </Nav>
 
                         <div className="d-flex">
-                            <Button variant="success" className="me-3">Create Project</Button>
+                            <Button href="/createProject" variant="success" className="me-3">Create Project</Button>
                             <Button href="/login" variant="light">Login</Button>
                         </div>
                     </Offcanvas.Body>

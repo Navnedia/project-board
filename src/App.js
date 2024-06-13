@@ -15,7 +15,7 @@ function App() {
                 <Route path="/createProject" element={<CreateProject/>} />
                 <Route path="/editProject/:projectId" element={<EditProject/>} />
                 <Route path="/project" element={<></>} />
-                <Route path="/user/projects" element={<ProjectsGrid/>} />
+                <Route path="/user/projects" element={<ProjectsGrid showEditBtn />} />
                 <Route path="/login" element={<></>} />
             </Routes>
         </Router>

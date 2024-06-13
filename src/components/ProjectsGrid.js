@@ -4,10 +4,10 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-function ProjectsGrid({...props}) {
-    const [ projects, setProjects ] = useState([]);
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
-    const baseURL = process.env.REACT_APP_API_BASE_URL;
+function ProjectsGrid({showEditBtn = false, ...props}) {
+    const [ projects, setProjects ] = useState([]);
 
     // Get list of projects from the backend API:
     useState(() => {
@@ -22,7 +22,7 @@ function ProjectsGrid({...props}) {
             <Row xs={1} sm={2} md={2} lg={3} xl={4} className="g-3">
                 {projects.map((project) => (
                     <Col key={project.id}>
-                        <ProjectCard project={project} />
+                        <ProjectCard project={project} showEditBtn={showEditBtn} />
                     </Col>
                 ))}
             </Row>

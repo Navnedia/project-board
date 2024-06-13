@@ -73,8 +73,10 @@ function ProjectForm({project = blankProject, projectId = null, onCancel = (_) =
         if (!!projectId) {
             fetch(`${baseURL}/projects/${projectId}`)
                 .then((response) => response.json())
-                .then((data) => setProjectForm(() => data))
-                .catch((err) => console.error(err));
+                .then((data) => {
+                    setProjectForm(() => data);
+                    setDescription(() => data.description);
+                }).catch((err) => console.error(err));
         }
     }, [projectId]);
 

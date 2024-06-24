@@ -1,5 +1,5 @@
 # Project Board
-A project share board to help you build a team and collaborate on exciting project ideas.
+A project share board to help you build a team and collaborate on exciting project ideas. You can find the backend server and API code at [project-board-backend](https://github.com/Navnedia/project-board-backend.git).
 
 ## Installation and Usage
 

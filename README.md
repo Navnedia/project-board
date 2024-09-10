@@ -1,5 +1,10 @@
 # Project Board
-A project share board to help you build a team and collaborate on exciting project ideas. Features markdown support so posters have the freedom to expess their project in a unique way. You can find the backend server and API code at **[project-board-backend](https://github.com/Navnedia/project-board-backend.git)**. 
+A project share board to help you build a team and collaborate on exciting project ideas. Features markdown support so posters have the freedom to expess their project in a unique way. **This project is still under development** and is not yet deployed.
+
+
+
+
+You can find the backend server and API code at **[project-board-backend](https://github.com/Navnedia/project-board-backend.git)**. 
 
 
 

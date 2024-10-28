@@ -22,6 +22,9 @@ The **main page** showes off project listings to explore.
 
 ![Project listing page](screenshots/project-listings.png)
 
+> [!NOTE]
+> **Projects shown in screenshots are example content only.**
+
 The **project creation form** lets users share their project concept, lay out the needs for their team, and provide contact information for people who are interested.
 
 ![Project listing page](screenshots/create-project.png)
@@ -29,6 +32,3 @@ The **project creation form** lets users share their project concept, lay out th
 **Markdown support** with a built-in editor and preview enables simple rich text formating so users can better express their ideas using sections, headers, images, links, lists, and more.
 
 ![Project listing page](screenshots/markdown-support.png)
-
-> [!NOTE]
-> **Projects shown in screenshots are example content only.**
